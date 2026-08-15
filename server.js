@@ -56,5 +56,5 @@ app.get('/api/balance', async (_req,res)=>{
 });
 
 app.get('/payment-complete', (_req,res)=>res.sendFile(path.join(__dirname,'public','payment-complete.html')));
-app.get('*', (_req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
+app.get('/{*splat}', (_req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
 app.listen(PORT,()=>console.log(`BEN SARK DATA HUB: http://localhost:${PORT}`));
