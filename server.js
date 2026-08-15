@@ -45,20 +45,16 @@ app.post('/api/purchase', async (req,res)=>{
   }catch(e){res.status(e.status||500).json({error:e.message});}
 });
 
-app.get('/api/transactions/:ref', async (req,res)=>
+app.get('/api/transactions/:ref', async (req,res)=>{
   try{res.json(await gdgh(`${BASE}/transactions/${encodeURIComponent(req.params.ref)}`));}
- } catch (e) {
-  res.status(e.status || 500).json({ error: e.message });
-}
+  catch(e){res.status(e.status||500).json({error:e.message});}
+});
 
-app.get('/payment-complete', (_req, res) =>
-  res.sendFile(path.join(__dirname, 'public', 'payment-complete.html'))
-);
+app.get('/api/balance', async (_req,res)=>{
+  try{res.json(await gdgh(`${BASE}/balance`));}
+  catch(e){res.status(e.status||500).json({error:e.message});}
+});
 
-app.get('/{*splat}', (_req, res) =>
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
-);
-
-app.listen(PORT, () =>
-  console.log('BEN SARK DATA HUB: http://localhost:' + PORT)
-);
+app.get('/payment-complete', (_req,res)=>res.sendFile(path.join(__dirname,'public','payment-complete.html')));
+app.get('*', (_req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
+app.listen(PORT,()=>console.log(`BEN SARK DATA HUB: http://localhost:${PORT}`));
