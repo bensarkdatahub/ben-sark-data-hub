@@ -55,6 +55,14 @@ app.get('/api/balance', async (_req,res)=>{
   catch(e){res.status(e.status||500).json({error:e.message});}
 });
 
-app.get('/payment-complete', (_req,res)=>res.sendFile(path.join(__dirname,'public','payment-complete.html')));
-app.get('*', (_req,res)=>res.sendFile(path.join(__dirname,'public','index.html')));
-app.listen(PORT,()=>console.log(`BEN SARK DATA HUB: http://localhost:${PORT}`));
+app.get('/payment-complete', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'payment-complete.html'))
+);
+
+app.get('/{*splat}', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+);
+
+app.listen(PORT, () =>
+  console.log(`BEN SARK DATA HUB: http://localhost:${PORT}`)
+);
